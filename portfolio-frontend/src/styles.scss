@@ -1,0 +1,88 @@
+// ─── Tailwind v4 import (replaces the three @tailwind directives) ──────────
+// In v4, this single line replaces @tailwind base/components/utilities
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));  // ← add this line
+
+
+// ─── Google Fonts ──────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@400;700&display=swap');
+
+// ─── Tailwind v4 Theme Configuration ───────────────────────────────────────
+// In v4, custom theme values live here in CSS, not in tailwind.config.js
+@theme {
+  --color-primary:        #2479ad;
+  --color-primary-light:  #3a8fc4;
+  --color-primary-dark:   #1a5a80;
+  --color-accent:         #7c3aed;
+  --color-accent-light:   #9461f0;
+  --color-accent-dark:    #6025c4;
+
+  --font-family-sans: 'Poppins', 'Montserrat', sans-serif;
+
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+}
+
+// ─── Keyframes ──────────────────────────────────────────────────────────────
+@keyframes fadeUp {
+  0%   { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+// ─── CSS Custom Properties (Design Tokens) ──────────────────────────────────
+// These are separate from @theme — used directly in component styles
+// via var(--color-bg) etc.
+:root {
+  --color-bg:         #f4f8fb;
+  --color-text:       #222222;
+  --color-text-muted: #555555;
+  --color-card-bg:    #ffffff;
+  --color-border:     rgba(36, 121, 173, 0.15);
+  --transition-base:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Dark mode — activates when <html> has class="dark"
+.dark {
+  --color-bg:         #0f1117;
+  --color-text:       #f4f8fb;
+  --color-text-muted: #9ca3af;
+  --color-card-bg:    #1e2330;
+  --color-border:     rgba(167, 139, 250, 0.2);
+}
+
+// ─── Global Base Styles ─────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color var(--transition-base),
+              color var(--transition-base);
+  line-height: 1.7;
+}
+
+// ─── Scrollbar ───────────────────────────────────────────────────────────────
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 3px;
+}
