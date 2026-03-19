@@ -1,0 +1,50 @@
+<section id="education" class="education-section">
+  <div class="section-container">
+
+    <div class="section-header" appScrollReveal>
+      <span class="section-label">My background</span>
+      <h2 class="section-title" appGlitchText="Education">Education</h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <div
+        class="timeline-item"
+        *ngFor="let edu of education(); let i = index; let last = last"
+        appScrollReveal
+        [revealDelay]="i * 150"
+      >
+        <!-- Timeline dot and line -->
+        <div class="timeline-track">
+          <div class="timeline-dot">
+            <span class="dot-icon">{{ getGradeIcon(edu.grade) }}</span>
+          </div>
+          <div class="timeline-line" *ngIf="!last"></div>
+        </div>
+
+        <!-- Card content -->
+        <div class="timeline-card">
+          <div class="card-top">
+            <div>
+              <h3 class="edu-degree">{{ edu.degree }}</h3>
+              <p class="edu-institution">{{ edu.institution }}</p>
+            </div>
+            <div class="edu-meta">
+              <span class="edu-year">{{ edu.year }}</span>
+              <span class="edu-board" *ngIf="edu.board">{{ edu.board }}</span>
+            </div>
+          </div>
+
+          <div class="card-bottom">
+            <div class="grade-badge">
+              <span class="grade-label">Grade</span>
+              <span class="grade-value">{{ edu.grade }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

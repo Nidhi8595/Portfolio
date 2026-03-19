@@ -1,0 +1,435 @@
+// ── Section ──────────────────────────────────────────────────────────────────
+
+.hero-section {
+  position:        relative;
+  min-height:      100vh;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  overflow:        hidden;
+  padding:         4rem 2rem 4rem;
+
+  // Gradient background
+  background: radial-gradient(
+    ellipse 80% 60% at 50% -10%,
+    rgba(124, 58, 237, 0.15) 0%,
+    transparent 70%
+  ),
+  radial-gradient(
+    ellipse 50% 40% at 80% 50%,
+    rgba(36, 121, 173, 0.1) 0%,
+    transparent 60%
+  ),
+  var(--color-bg);
+
+  :host-context(.dark) & {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(124, 58, 237, 0.2) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 80% 50%,
+      rgba(36, 121, 173, 0.12) 0%,
+      transparent 60%
+    ),
+    var(--color-bg);
+  }
+}
+
+// ── Particles ────────────────────────────────────────────────────────────────
+
+.particles {
+  position: absolute;
+  inset:    0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position:     absolute;
+  border-radius: 50%;
+  opacity:      0.4;
+  animation:    float linear infinite;
+
+  @for $i from 1 through 8 {
+    &--#{$i} {
+      $size: 4px + random(8) * 1px;
+      width:  $size;
+      height: $size;
+      left:   random(100) * 1%;
+      top:    random(100) * 1%;
+      animation-duration:  8s + random(12) * 1s;
+      animation-delay:    -1 * random(15) * 1s;
+      background: if($i % 2 == 0, var(--color-accent), var(--color-primary));
+    }
+  }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0)    rotate(0deg);   opacity: 0.4; }
+  50%  { transform: translateY(-30px) rotate(180deg); opacity: 0.2; }
+  100% { transform: translateY(0)    rotate(360deg); opacity: 0.4; }
+}
+
+// ── Layout ───────────────────────────────────────────────────────────────────
+
+.hero-container {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             4rem;
+  max-width:       1100px;
+  width:           100%;
+  margin:          0 auto;
+
+  @media (max-width: 900px) {
+    flex-direction: column-reverse;
+    text-align:     center;
+    gap:            2.5rem;
+  }
+}
+
+// ── Text Side ────────────────────────────────────────────────────────────────
+
+.hero-text {
+  flex:       1;
+  max-width:  580px;
+
+  @media (max-width: 900px) {
+    max-width: 100%;
+  }
+}
+
+.greeting-badge {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.5rem;
+  padding:         0.35rem 0.9rem;
+  border-radius:   999px;
+  background:      rgba(124, 58, 237, 0.08);
+  border:          1px solid rgba(124, 58, 237, 0.2);
+  color:           var(--color-accent);
+  font-size:       0.82rem;
+  font-weight:     500;
+  margin-bottom:   1.5rem;
+  letter-spacing:  0.02em;
+}
+
+.badge-dot {
+  width:        7px;
+  height:       7px;
+  border-radius: 50%;
+  background:   #22c55e;
+  animation:    pulse-dot 2s ease infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(34, 197, 94, 0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+.hero-heading {
+  font-size:     clamp(2.4rem, 5vw, 3.8rem);
+  font-weight:   700;
+  line-height:   1.15;
+  color:         var(--color-text);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-name {
+  display:             block;
+  background:          linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  // -webkit-text-fill-color: transparent;
+  background-clip:     text;
+}
+
+.hero-role {
+  font-size:     clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight:   500;
+  color:         var(--color-text-muted);
+  margin-bottom: 1.5rem;
+  min-height:    2.2rem;
+}
+
+.role-text {
+  color:       var(--color-accent);
+  font-weight: 600;
+}
+
+.cursor {
+  display:          inline-block;
+  color:            var(--color-accent);
+  animation:        blink 0.9s step-end infinite;
+  margin-left:      1px;
+  font-weight:      300;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.hero-description {
+  font-size:     1rem;
+  line-height:   1.8;
+  color:         var(--color-text-muted);
+  margin-bottom: 1.8rem;
+  max-width:     520px;
+
+  @media (max-width: 900px) {
+    margin-inline: auto;
+  }
+}
+
+// ── Tech Badges ───────────────────────────────────────────────────────────────
+
+.tech-badges {
+  display:       flex;
+  flex-wrap:     wrap;
+  gap:           0.5rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
+}
+
+.tech-badge {
+  padding:       0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size:     0.78rem;
+  font-weight:   500;
+  background:    rgba(36, 121, 173, 0.08);
+  color:         var(--color-primary);
+  border:        1px solid rgba(36, 121, 173, 0.15);
+  transition:    background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: rgba(36, 121, 173, 0.14);
+    transform:  translateY(-2px);
+  }
+}
+
+// ── CTA Buttons ───────────────────────────────────────────────────────────────
+
+.hero-actions {
+  display:     flex;
+  align-items: center;
+  gap:         1rem;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
+}
+
+.btn-primary {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.5rem;
+  padding:         0.75rem 1.6rem;
+  background:      linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  // color:           #fff;
+  border:          none;
+  border-radius:   8px;
+  font-size:       0.95rem;
+  font-weight:     600;
+  cursor:          pointer;
+  transition:      transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform:   translateY(-2px);
+    box-shadow:  0 8px 24px rgba(124, 58, 237, 0.35);
+  }
+
+  svg { transition: transform 0.2s; }
+  &:hover svg { transform: translateX(3px); }
+}
+
+.btn-secondary {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.5rem;
+  padding:         0.75rem 1.4rem;
+  background:      transparent;
+  color:           var(--color-text);
+  border:          1.5px solid var(--color-border);
+  border-radius:   8px;
+  font-size:       0.95rem;
+  font-weight:     500;
+  text-decoration: none;
+  transition:      border-color 0.2s, background 0.2s, transform 0.2s;
+
+  &:hover {
+    border-color: var(--color-accent);
+    background:   rgba(124, 58, 237, 0.05);
+    transform:    translateY(-2px);
+  }
+}
+
+// ── Profile Image ─────────────────────────────────────────────────────────────
+
+.hero-image-wrapper {
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.image-ring {
+  position:      absolute;
+  width:         300px;
+  height:        300px;
+  border-radius: 50%;
+  border:        2px solid transparent;
+  background:    linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+                 linear-gradient(135deg, var(--color-primary), var(--color-accent)) border-box;
+  animation:     spin-ring 8s linear infinite;
+
+  @media (max-width: 600px) {
+    width:  240px;
+    height: 240px;
+  }
+}
+
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+
+.image-container {
+  width:         260px;
+  height:        260px;
+  border-radius: 50%;
+  overflow:      hidden;
+  border:        3px solid rgba(124, 58, 237, 0.2);
+  position:      relative;
+  z-index:       1;
+
+  @media (max-width: 600px) {
+    width:  210px;
+    height: 210px;
+  }
+}
+
+.profile-image {
+  width:       100%;
+  height:      100%;
+  object-fit:  cover;
+  object-position: top center;
+  transition:  transform 0.4s ease;
+
+  &:hover { transform: scale(1.05); }
+}
+
+// ── Scroll Indicator ──────────────────────────────────────────────────────────
+
+.scroll-indicator {
+  position:        absolute;
+  bottom:          2rem;
+  left:            50%;
+  transform:       translateX(-50%);
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             0.3rem;
+  background:      none;
+  border:          none;
+  cursor:          pointer;
+  color:           var(--color-text-muted);
+  font-size:       0.75rem;
+  letter-spacing:  0.1em;
+  text-transform:  uppercase;
+  opacity:         0.6;
+  transition:      opacity 0.2s;
+  animation:       fade-in-late 1s ease 1.5s both;
+
+  &:hover { opacity: 1; }
+}
+
+@keyframes fade-in-late {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+}
+
+.scroll-arrow {
+  animation: bounce-arrow 1.8s ease infinite;
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0);  }
+  50%      { transform: translateY(6px); }
+}
+
+.stats-bar {
+  display:         flex;
+  justify-content: center;
+  gap:             3rem;
+  flex-wrap:       wrap;
+  margin-top:      3rem;
+  padding-top:     2rem;
+  border-top:      1px solid var(--color-border);
+  width:           100%;
+  max-width:       1100px;
+
+  @media (max-width: 600px) { gap: 1.5rem; }
+}
+
+.stat-item {
+  text-align: center;
+  display:    flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size:   2.2rem;
+  font-weight: 700;
+  background:  linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-suffix {
+  font-size:   1.4rem;
+  font-weight: 700;
+  background:  linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-left: 2px;
+}
+
+.stat-label {
+  font-size:   0.78rem;
+  color:       var(--color-text-muted);
+  font-weight: 500;
+  margin-top:  0.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+// Add inside .hero-section after the existing background:
+.hero-section::after {
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  opacity:    0.025;
+  pointer-events: none;
+  z-index:    0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+// Make sure hero content sits above the grain
+.hero-container,
+.scroll-indicator,
+.stats-bar {
+  position: relative;
+  z-index:  1;
+}

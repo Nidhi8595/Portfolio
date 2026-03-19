@@ -1,0 +1,349 @@
+// ── Section ───────────────────────────────────────────────────────────────────
+
+.projects-section {
+  padding:    6rem 2rem;
+  background: var(--color-bg);
+  position:   relative;
+
+  // Subtle top divider line
+  &::before {
+    content:    '';
+    position:   absolute;
+    top:        0;
+    left:       50%;
+    transform:  translateX(-50%);
+    width:      1px;
+    height:     80px;
+    background: linear-gradient(to bottom, transparent, var(--color-primary));
+    opacity:    0.3;
+  }
+}
+
+.section-container {
+  max-width: 1100px;
+  margin:    0 auto;
+}
+
+// ── Section Header ────────────────────────────────────────────────────────────
+
+.section-header {
+  text-align:    center;
+  margin-bottom: 3.5rem;
+}
+
+.section-label {
+  display:        inline-block;
+  font-size:      0.8rem;
+  font-weight:    600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--color-accent);
+  margin-bottom:  0.75rem;
+}
+
+.section-title {
+  font-size:      clamp(1.8rem, 4vw, 2.6rem);
+  font-weight:    700;
+  color:          var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom:  0.75rem;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color:     var(--color-text-muted);
+
+  &.filtered {
+    color: var(--color-text);
+  }
+
+  strong      { color: var(--color-accent); }
+  .skill-name { color: var(--color-accent); }
+}
+
+.inline-clear {
+  background:    none;
+  border:        none;
+  color:         var(--color-text-muted);
+  font-size:     0.9rem;
+  cursor:        pointer;
+  margin-left:   0.5rem;
+  padding:       0.1rem 0.4rem;
+  border-radius: 4px;
+  transition:    color 0.2s, background 0.2s;
+
+  &:hover {
+    color:      var(--color-accent);
+    background: rgba(124, 58, 237, 0.08);
+  }
+}
+
+// ── Projects Grid ─────────────────────────────────────────────────────────────
+
+.projects-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap:                   2rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Project Card ──────────────────────────────────────────────────────────────
+
+.project-card {
+  background:    var(--color-card-bg);
+  border:        1px solid var(--color-border);
+  border-radius: 16px;
+  overflow:      hidden;
+  display:       flex;
+  flex-direction: column;
+  transition:    transform 0.3s ease,
+                 box-shadow 0.3s ease,
+                 border-color 0.3s ease;
+
+  &:hover {
+    transform:    translateY(-6px);
+    box-shadow:   0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: rgba(124, 58, 237, 0.25);
+
+    .card-image    { transform: scale(1.05); }
+    .card-overlay  { opacity: 1; }
+  }
+}
+
+// ── Card Image ────────────────────────────────────────────────────────────────
+
+.card-image-wrapper {
+  position:   relative;
+  height:     200px;
+  overflow:   hidden;
+}
+
+.card-image {
+  width:       100%;
+  height:      100%;
+  object-fit:  cover;
+  object-position: top center;
+  transition:  transform 0.4s ease;
+}
+
+.card-overlay {
+  position:        absolute;
+  inset:           0;
+  background:      rgba(0, 0, 0, 0.7);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             1rem;
+  opacity:         0;
+  transition:      opacity 0.3s ease;
+}
+
+.overlay-btn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.4rem;
+  padding:         0.6rem 1.2rem;
+  border-radius:   8px;
+  font-size:       0.85rem;
+  font-weight:     600;
+  text-decoration: none;
+  transition:      transform 0.2s;
+
+  background: var(--color-accent);
+  color:      #fff;
+
+  &--ghost {
+    background: transparent;
+    border:     1.5px solid rgba(255, 255, 255, 0.6);
+    color:      #fff;
+  }
+
+  &:hover { transform: scale(1.05); }
+}
+
+// ── Card Body ─────────────────────────────────────────────────────────────────
+
+.card-body {
+  padding: 1.4rem;
+  flex:    1;
+}
+
+.card-title {
+  font-size:     1.1rem;
+  font-weight:   700;
+  color:         var(--color-text);
+  margin-bottom: 0.5rem;
+  line-height:   1.3;
+}
+
+.card-description {
+  font-size:     0.88rem;
+  color:         var(--color-text-muted);
+  line-height:   1.6;
+  margin-bottom: 1rem;
+}
+
+// ── Skill Badges ──────────────────────────────────────────────────────────────
+
+.card-skills {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       0.4rem;
+}
+
+.skill-badge {
+  padding:       0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size:     0.72rem;
+  font-weight:   500;
+  background:    rgba(36, 121, 173, 0.07);
+  color:         var(--color-text-muted);
+  border:        1px solid rgba(36, 121, 173, 0.1);
+  transition:    background 0.2s, color 0.2s, border-color 0.2s;
+
+  // Active — matches the selected skill filter
+  &--active {
+    background:   rgba(124, 58, 237, 0.12);
+    color:        var(--color-accent);
+    border-color: rgba(124, 58, 237, 0.3);
+    font-weight:  600;
+  }
+}
+
+// ── Card Footer ───────────────────────────────────────────────────────────────
+
+.card-footer {
+  display:       flex;
+  align-items:   center;
+  gap:           1rem;
+  padding:       1rem 1.4rem;
+  border-top:    1px solid var(--color-border);
+  background:    rgba(0, 0, 0, 0.01);
+}
+
+.card-link {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.3rem;
+  font-size:       0.85rem;
+  font-weight:     600;
+  color:           var(--color-accent);
+  text-decoration: none;
+  transition:      gap 0.2s ease, color 0.2s;
+
+  &:hover {
+    gap:   0.5rem;
+    color: var(--color-primary);
+  }
+
+  &--muted {
+    color: var(--color-text-muted);
+    margin-left: auto;
+
+    &:hover { color: var(--color-text); }
+  }
+}
+
+// ── Loading Skeletons ─────────────────────────────────────────────────────────
+
+.skeleton-card {
+  background:    var(--color-card-bg);
+  border:        1px solid var(--color-border);
+  border-radius: 16px;
+  overflow:      hidden;
+}
+
+.skeleton-image {
+  height:     200px;
+  background: var(--color-border);
+  animation:  shimmer 1.5s ease infinite;
+}
+
+.skeleton-body { padding: 1.4rem; }
+
+.skeleton-title {
+  height:        22px;
+  width:         70%;
+  background:    var(--color-border);
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+  animation:     shimmer 1.5s ease infinite;
+}
+
+.skeleton-text {
+  height:        14px;
+  width:         90%;
+  background:    var(--color-border);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  animation:     shimmer 1.5s ease 0.1s infinite;
+}
+
+.skeleton-badges {
+  display: flex;
+  gap:     0.5rem;
+}
+
+.skeleton-badge {
+  height:        26px;
+  width:         60px;
+  background:    var(--color-border);
+  border-radius: 999px;
+  animation:     shimmer 1.5s ease 0.2s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1;   }
+}
+
+// ── Empty State ───────────────────────────────────────────────────────────────
+
+.empty-state {
+  text-align: center;
+  padding:    4rem 2rem;
+  color:      var(--color-text-muted);
+
+  .empty-icon {
+    font-size:     3rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size:     1.2rem;
+    color:         var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  p { margin-bottom: 1.5rem; }
+}
+
+.btn-clear {
+  padding:       0.7rem 1.4rem;
+  background:    var(--color-accent);
+  color:         #fff;
+  border:        none;
+  border-radius: 8px;
+  font-size:     0.9rem;
+  font-weight:   600;
+  cursor:        pointer;
+  transition:    transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform:  translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+  }
+}
+
+// ── Error State ───────────────────────────────────────────────────────────────
+
+.error-state {
+  text-align: center;
+  padding:    3rem;
+  color:      var(--color-text-muted);
+
+  span { font-size: 2rem; display: block; margin-bottom: 1rem; }
+}

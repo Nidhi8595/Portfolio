@@ -1,0 +1,191 @@
+.education-section {
+  padding:    6rem 2rem;
+  background: var(--color-bg);
+  position:   relative;
+
+  &::before {
+    content:    '';
+    position:   absolute;
+    top:        0;
+    left:       50%;
+    transform:  translateX(-50%);
+    width:      1px;
+    height:     80px;
+    background: linear-gradient(to bottom, transparent, var(--color-accent));
+    opacity:    0.3;
+  }
+}
+
+.section-container {
+  max-width: 800px;
+  margin:    0 auto;
+}
+
+.section-header {
+  text-align:    center;
+  margin-bottom: 3.5rem;
+}
+
+.section-label {
+  display:        inline-block;
+  font-size:      0.8rem;
+  font-weight:    600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--color-accent);
+  margin-bottom:  0.75rem;
+}
+
+.section-title {
+  font-size:      clamp(1.8rem, 4vw, 2.6rem);
+  font-weight:    700;
+  color:          var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+// ── Timeline ──────────────────────────────────────────────────────────────────
+
+.timeline {
+  display:        flex;
+  flex-direction: column;
+  gap:            0;
+}
+
+.timeline-item {
+  display: flex;
+  gap:     1.5rem;
+}
+
+.timeline-track {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  flex-shrink:    0;
+}
+
+.timeline-dot {
+  width:           52px;
+  height:          52px;
+  border-radius:   50%;
+  background:      var(--color-card-bg);
+  border:          2px solid var(--color-accent);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  box-shadow:      0 0 0 4px rgba(124, 58, 237, 0.08);
+  transition:      box-shadow 0.3s;
+
+  .timeline-item:hover & {
+    box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.12);
+  }
+}
+
+.dot-icon { font-size: 1.3rem; }
+
+.timeline-line {
+  width:      2px;
+  flex:       1;
+  min-height: 32px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent),
+    rgba(124, 58, 237, 0.15)
+  );
+  margin: 6px 0;
+}
+
+// ── Timeline Card ─────────────────────────────────────────────────────────────
+
+.timeline-card {
+  flex:          1;
+  background:    var(--color-card-bg);
+  border:        1px solid var(--color-border);
+  border-radius: 16px;
+  padding:       1.4rem;
+  margin-bottom: 1.5rem;
+  transition:    border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+
+  &:hover {
+    border-color: rgba(124, 58, 237, 0.25);
+    box-shadow:   0 8px 24px rgba(0, 0, 0, 0.07);
+    transform:    translateX(4px);
+  }
+}
+
+.card-top {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     flex-start;
+  gap:             1rem;
+  margin-bottom:   1rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.edu-degree {
+  font-size:     1.05rem;
+  font-weight:   700;
+  color:         var(--color-text);
+  margin-bottom: 0.3rem;
+}
+
+.edu-institution {
+  font-size:   0.88rem;
+  color:       var(--color-text-muted);
+  font-weight: 500;
+}
+
+.edu-meta {
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-end;
+  gap:            0.3rem;
+  flex-shrink:    0;
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    align-items:    center;
+  }
+}
+
+.edu-year {
+  font-size:     0.82rem;
+  font-weight:   600;
+  color:         var(--color-accent);
+  background:    rgba(124, 58, 237, 0.08);
+  padding:       0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.edu-board {
+  font-size:   0.78rem;
+  color:       var(--color-text-muted);
+  font-weight: 500;
+}
+
+.card-bottom { border-top: 1px solid var(--color-border); padding-top: 0.8rem; }
+
+.grade-badge {
+  display:     inline-flex;
+  align-items: center;
+  gap:         0.5rem;
+}
+
+.grade-label {
+  font-size:   0.78rem;
+  color:       var(--color-text-muted);
+  font-weight: 500;
+}
+
+.grade-value {
+  font-size:     0.9rem;
+  font-weight:   700;
+  color:         var(--color-text);
+  background:    rgba(36, 121, 173, 0.08);
+  padding:       0.2rem 0.7rem;
+  border-radius: 999px;
+  border:        1px solid rgba(36, 121, 173, 0.15);
+}

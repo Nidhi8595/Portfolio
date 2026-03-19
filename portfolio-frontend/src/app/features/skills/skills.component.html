@@ -1,0 +1,103 @@
+<section id="skills" class="skills-section">
+  <div class="section-container">
+
+    <!-- Section header -->
+    <div class="section-header" appScrollReveal>
+      <span class="section-label">What I work with</span>
+      <h2 class="section-title"
+          appGlitchText="Skills & Technologies">
+        Skills & Technologies
+      </h2>
+      <p class="section-subtitle">
+        Click any skill to filter matching projects
+      </p>
+    </div>
+
+    <!-- Active filter banner -->
+    <div class="filter-banner" *ngIf="filterService.isFiltered()">
+      <div class="filter-banner-inner">
+        <span class="filter-icon">⚡</span>
+        <span>
+          Showing projects using
+          <strong>{{ filterService.selectedSkill() }}</strong>
+        </span>
+      </div>
+      <button class="clear-filter" (click)="filterService.clearFilter()">
+        <svg width="12" height="12" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="3"
+             stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6"  y1="6" x2="18" y2="18"/>
+        </svg>
+        Clear
+      </button>
+    </div>
+
+    <!-- Skeleton -->
+    <div class="skeleton-wrap" *ngIf="isLoading()">
+      <div class="skeleton-row" *ngFor="let i of [1,2,3]">
+        <div class="skeleton-label"></div>
+        <div class="skeleton-pills">
+          <div class="skeleton-pill" *ngFor="let j of [1,2,3,4,5]"
+               [style.width]="(60 + j * 12) + 'px'"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" *ngIf="hasError()">
+      <span>⚠️</span>
+      <p>Could not load skills. Please refresh.</p>
+    </div>
+
+    <!-- ── New layout: bento-style grouped panels ── -->
+    <div class="bento-grid" *ngIf="!isLoading() && !hasError()">
+
+      <div
+        class="bento-card"
+        *ngFor="let category of skillCategories(); let i = index"
+        appScrollReveal
+        [revealDelay]="i * 90"
+        [class]="'bento-card bento-card--' + i"
+      >
+        <!-- Card header -->
+        <div class="bento-header">
+          <div class="bento-icon-wrap">
+            <span class="bento-icon">{{ getCategoryIcon(category.category) }}</span>
+          </div>
+          <div>
+            <h3 class="bento-title">{{ category.category }}</h3>
+            <span class="bento-count">{{ category.items.length }} skills</span>
+          </div>
+        </div>
+
+        <!-- Skill pills -->
+        <div class="pill-cloud">
+          <button
+            class="pill"
+            *ngFor="let skill of category.items"
+            [class.pill--active]="isActive(skill)"
+            (click)="onSkillClick(skill)"
+            [title]="'Filter by ' + skill"
+          >
+            <img
+              *ngIf="getIcon(skill)"
+              [src]="getIcon(skill)"
+              [alt]="skill"
+              class="pill-icon"
+              loading="lazy"
+              (error)="$any($event.target).style.display='none'"
+            />
+            <span class="pill-dot" *ngIf="!getIcon(skill)"></span>
+            {{ skill }}
+          </button>
+        </div>
+
+        <!-- Bottom accent line animates on hover -->
+        <div class="bento-accent"></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
