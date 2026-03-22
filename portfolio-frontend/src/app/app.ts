@@ -14,6 +14,9 @@ import { CommandPaletteComponent }  from './shared/components/command-palette/co
 import { ParticleCanvasComponent } from './shared/components/particle-canvas/particle-canvas.component';
 import { TerminalComponent }       from './shared/components/terminal/terminal.component';
 import { TickerComponent }         from './shared/components/ticker/ticker.component';
+import { KeepaliveService }    from './core/services/keepalive.service';
+import { inject } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   imports: [NavbarComponent, HeroComponent,SkillsComponent, ProjectsComponent, CertificationsComponent, EducationComponent, ContactComponent, ScrollProgressComponent, CursorGlowComponent, SectionNavComponent, PageLoaderComponent, CommandPaletteComponent, ParticleCanvasComponent, TerminalComponent, TickerComponent],
@@ -21,5 +24,6 @@ import { TickerComponent }         from './shared/components/ticker/ticker.compo
   styleUrl: './app.scss'
 })
 export class App {
+   private _keepalive = inject(KeepaliveService);
   protected readonly title = signal('portfolio-frontend');
 }
