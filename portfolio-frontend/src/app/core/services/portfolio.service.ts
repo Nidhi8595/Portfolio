@@ -84,19 +84,35 @@ export class PortfolioService {
 }
 // ── Contact ───────────────────────────────────────────────────────────────────
 
-sendMessage(payload: { name: string; email: string; message: string }): Observable<{ success: boolean; message: string }> {
+sendMessage(payload: {
+  name: string;
+  email: string;
+  message: string
+}): Observable<{ success: boolean; message: string }> {
+
   return this.http.post<{ success: boolean; message: string }>(
     `${this.apiUrl}/contact`,
     payload
   ).pipe(
     catchError(err => {
       console.error('Failed to send message:', err);
-      // Return a typed error response instead of crashing
-      return of({ success: false, message: 'Something went wrong. Please try again.' });
+
+      // Handle network error (server down, CORS, etc.)
+      if (err.status === 0) {
+        return of({
+          success: false,
+          message: 'Cannot reach server. Please email me directly at neelakshikadyan@gmail.com'
+        });
+      }
+
+      // Handle server error
+      return of({
+        success: false,
+        message: 'Something went wrong. Please try again.'
+      });
     })
   );
 }
-
 wakeServer(): Observable<any> {
   return this.http.get(`${this.apiUrl}/health`).pipe(
     catchError(() => of(null)) // silently ignore errors
