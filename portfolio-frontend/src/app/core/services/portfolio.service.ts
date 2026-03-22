@@ -97,6 +97,12 @@ sendMessage(payload: { name: string; email: string; message: string }): Observab
   );
 }
 
+wakeServer(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/health`).pipe(
+    catchError(() => of(null)) // silently ignore errors
+  );
+}
+
 
 
 }

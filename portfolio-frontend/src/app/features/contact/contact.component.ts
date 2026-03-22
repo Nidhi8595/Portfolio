@@ -104,29 +104,45 @@ export class ContactComponent {
   // ── Submit ──────────────────────────────────────────────────────────────────
 
   onSubmit(): void {
-    if (!this.validate()) return;
+  if (!this.validate()) return;
 
-    this.isLoading.set(true);
-    this.hasError.set(false);
+  this.isLoading.set(true);
+  this.hasError.set(false);
 
-    this.portfolioService.sendMessage({
-      name:    this.form.name.trim(),
-      email:   this.form.email.trim(),
-      message: this.form.message.trim()
-    }).subscribe(response => {
+  // Wake the server first, then send the real request
+  // ERR_ADDRESS_UNREACHABLE means the server is sleeping
+  this.portfolioService.wakeServer().subscribe({
+    next: () => this.sendForm(),
+    error: () => this.sendForm() // even if ping fails, try anyway
+  });
+}
+
+private sendForm(): void {
+  this.portfolioService.sendMessage({
+    name:    this.form.name.trim(),
+    email:   this.form.email.trim(),
+    message: this.form.message.trim()
+  }).subscribe({
+    next: response => {
       this.isLoading.set(false);
       this.responseMessage.set(response.message);
-
       if (response.success) {
         this.submitted.set(true);
-        // Reset form
-        this.form = { name: '', email: '', message: '' };
+        this.form   = { name: '', email: '', message: '' };
         this.errors.set({});
       } else {
         this.hasError.set(true);
       }
-    });
-  }
+    },
+    error: () => {
+      this.isLoading.set(false);
+      this.hasError.set(true);
+      this.responseMessage.set(
+        'Server is waking up — please try again in 30 seconds.'
+      );
+    }
+  });
+}
 
   resetForm(): void {
     this.submitted.set(false);
