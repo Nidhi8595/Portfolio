@@ -75,7 +75,9 @@ export class SkillsComponent implements OnInit {
     'VS Code':'VSCode.png',
     'Postman':'Postman.png',
     'Insomnia':'Insomnia.png',
-    'Github Pages':'Github.png'
+    'Github Pages':'Github.png',
+    'GraphQL':'graphql.png',
+    'Next.js':'nextjs.png'
   };
 
   // Category icon mapping for section headers
